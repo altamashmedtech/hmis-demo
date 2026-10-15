@@ -61,7 +61,7 @@ if(clean.length<8||clean.length>15){toast('Check the mobile number and try again
 const rows=items().map(function(p){return '• '+p.name+' × '+qty(p.id)+' — '+money(p.price*qty(p.id))}).join('\n');
 const msg='Hello MedDrop, I would like to request an order.\n\nItems (sample prices):\n'+rows+'\n\nEstimated subtotal: '+money(total())+'\nDelivery: please confirm\n\nCustomer: '+String(f.get('name')).trim()+'\nMobile: '+ph+'\nPIN code: '+String(f.get('pin')).trim()+'\nAddress: '+String(f.get('address')).trim()+'\nNotes: '+String(f.get('notes')||'None').trim()+'\n\nPlease confirm final price, stock and delivery. This is an order request, not a confirmed purchase.';
 const url=STORE_WHATSAPP?'https://wa.me/'+STORE_WHATSAPP+'?text='+encodeURIComponent(msg):'https://wa.me/?text='+encodeURIComponent(msg);
-const w=window.open(url,'_blank','noopener,noreferrer');
+const w=window.open(url,'_blank');
 if(!w){if(navigator.clipboard)navigator.clipboard.writeText(msg).then(function(){toast('Order text copied. WhatsApp was blocked.')}).catch(function(){toast('Allow pop-ups to open WhatsApp')});else toast('Allow pop-ups to open WhatsApp')}
 const form=document.getElementById('orderForm');if(form){const a=document.createElement('div');a.className='alert';a.textContent=STORE_WHATSAPP?'WhatsApp opened. Review and send the order.':'WhatsApp opened with the message. Select the correct store contact before sending; the store number is not configured in this demo.';form.prepend(a)}
 }
